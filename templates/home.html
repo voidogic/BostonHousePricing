@@ -1,13 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <title>Boston House Price Prediction</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>
-        Hello World
-    </h1>
+
+<body class="bg-gradient-to-r from-blue-50 via-blue-100 to-blue-200 min-h-screen flex items-center justify-center font-[Outfit]">
+  <div class="bg-white p-10 rounded-2xl shadow-2xl w-full max-w-lg">
+    <h1 class="text-3xl font-semibold text-center text-blue-700 mb-6">🏠 Boston House Price Prediction</h1>
+    <p class="text-center text-gray-500 mb-8">Enter the housing parameters below to predict the median value of a house (in $1000s)</p>
+
+    <form action="{{ url_for('predict') }}" method="post" class="space-y-4">
+      <!-- CRIM -->
+      <div>
+        <label class="block text-gray-700 font-medium">CRIM (per capita crime rate by town)</label>
+        <input type="number" step="any" name="CRIM" placeholder="e.g. 0.1" required
+          class="w-full p-3 mt-1 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500">
+      </div>
+
+      <!-- ZN -->
+      <div>
+        <label class="block text-gray-700 font-medium">ZN (residential land zoned for lots over 25,000 sq.ft.)</label>
+        <input type="number" step="any" name="ZN" placeholder="e.g. 18.0" required
+          class="w-full p-3 mt-1 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500">
+      </div>
+
+      <!-- INDUS -->
+      <div>
+        <label class="block text-gray-700 font-medium">INDUS (non-retail business acres per town)</label>
+        <input type="number" step="any" name="INDUS" placeholder="e.g. 2.31" required
+          class="w-full p-3 mt-1 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500">
+      </div>
+
+      <!-- CHAS -->
+      <div>
+        <label class="block text-gray-700 font-medium">CHAS (Charles River dummy variable)</label>
+        <input type="number" min="0" max="1" name="CHAS" placeholder="1 if near river, else 0" required
+          class="w-full p-3 mt-1 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500">
+      </div>
+
+      <!-- NOX -->
+      <div>
+        <label class="block text-gray-700 font-medium">NOX (nitric oxides concentration)</label>
+        <input type="number" step="any" name="NOX" placeholder="e.g. 0.538" required
+          class="w-full p-3 mt-1 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500">
+      </div>
+
+      <!-- RM -->
+      <div>
+        <label class="block text-gray-700 font-medium">RM (average number of rooms per dwelling)</label>
+        <input type="number" step="any" name="RM" placeholder="e.g. 6.575" required
+          class="w-full p-3 mt-1 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500">
+      </div>
+
+      <!-- AGE -->
+      <div>
+        <label class="block text-gray-700 font-medium">AGE (proportion of owner-occupied units built before 1940)</label>
+        <input type="number" step="any" name="Age" placeholder="e.g. 65.2" required
+          class="w-full p-3 mt-1 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500">
+      </div>
+
+      <!-- DIS -->
+      <div>
+        <label class="block text-gray-700 font-medium">DIS (weighted distances to 5 employment centres)</label>
+        <input type="number" step="any" name="DIS" placeholder="e.g. 4.09" required
+          class="w-full p-3 mt-1 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500">
+      </div>
+
+      <!-- RAD -->
+      <div>
+        <label class="block text-gray-700 font-medium">RAD (accessibility index to radial highways)</label>
+        <input type="number" step="any" name="RAD" placeholder="e.g. 1.0" required
+          class="w-full p-3 mt-1 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500">
+      </div>
+
+      <!-- TAX -->
+      <div>
+        <label class="block text-gray-700 font-medium">TAX (full-value property-tax rate per $10,000)</label>
+        <input type="number" step="any" name="TAX" placeholder="e.g. 296.0" required
+          class="w-full p-3 mt-1 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500">
+      </div>
+
+      <!-- PTRATIO -->
+      <div>
+        <label class="block text-gray-700 font-medium">PTRATIO (pupil-teacher ratio by town)</label>
+        <input type="number" step="any" name="PTRATIO" placeholder="e.g. 15.3" required
+          class="w-full p-3 mt-1 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500">
+      </div>
+
+      <!-- B -->
+      <div>
+        <label class="block text-gray-700 font-medium">B (1000 × (Bk - 0.63)², Bk = proportion of blacks)</label>
+        <input type="number" step="any" name="B" placeholder="e.g. 396.9" required
+          class="w-full p-3 mt-1 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500">
+      </div>
+
+      <!-- LSTAT -->
+      <div>
+        <label class="block text-gray-700 font-medium">LSTAT (% lower status of the population)</label>
+        <input type="number" step="any" name="LSTAT" placeholder="e.g. 4.98" required
+          class="w-full p-3 mt-1 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500">
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit"
+        class="w-full bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 transition duration-300 font-semibold">
+        Predict Price
+      </button>
+    </form>
+
+    <!-- Prediction Text -->
+    {% if prediction_text %}
+    <div class="mt-6 text-center bg-blue-50 p-4 rounded-xl border border-blue-100 text-lg text-blue-700 font-semibold">
+      {{ prediction_text }}
+    </div>
+    {% endif %}
+  </div>
 </body>
 </html>
